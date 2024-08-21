@@ -14,11 +14,12 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
     @PostMapping("/register")
     public Users register(@RequestBody Users user)
     {
+        user.setPassword(encoder.encode(user.getPassword()));
         return service.register(user);
     }
 }
