@@ -2,6 +2,7 @@ package com.example.SpringSecEx.controller;
 
 import com.example.SpringSecEx.model.Users;
 import com.example.SpringSecEx.service.UserService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,5 +22,11 @@ public class UserController {
     {
         user.setPassword(encoder.encode(user.getPassword()));
         return service.register(user);
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody Users user)
+    {
+        return  service.verify(user);
     }
 }
